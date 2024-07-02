@@ -1,0 +1,3 @@
+# GraphIt
+
+> A graphing calculator
