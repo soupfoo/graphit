@@ -14,6 +14,7 @@ LIB := -L$(SFML_DIR)/lib
 
 # Source files
 SRCS := $(wildcard *.cpp)
+#SRCS += ./equations/sinewave.cpp
 
 # Object files
 OBJS := $(SRCS:.cpp=.o)
