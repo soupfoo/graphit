@@ -6,7 +6,6 @@
 #include <vector>
 #include <cmath>
 
-
 const int centreX = 950;
 const int centreY = 450;
 const int left = 400 ;

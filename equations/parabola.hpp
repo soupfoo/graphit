@@ -17,6 +17,7 @@ sf::VertexArray Parabola() {
         float y2 = -sqrt(4*a*(x-centreX)) + centreY;
         parabola.append(sf::Vertex(sf::Vector2f(x, y2-2), graphColor));
         parabola.append(sf::Vertex(sf::Vector2f(x, y2+2), graphColor));
-}
+    }
+    
     return parabola;
 }
