@@ -1,13 +1,15 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Color.hpp>
-#include <vector>
+#include <SFML/Graphics/Drawable.hpp>
 #include <cmath>
+#include "equations/vars.hpp"
 #include "equations/parabola.hpp"
 #include "equations/sine.hpp"
+#include "equations/hyperbola.hpp"
 #include "equations/cosine.hpp"
 #include "equations/circle.hpp"
 #include "equations/slope.hpp"
-
+#include "equations/ellipse.hpp"
 
 sf::VertexArray createAxes() {
     sf::VertexArray axes(sf::Lines);
@@ -44,16 +46,10 @@ bool MouseClicked(const sf::RectangleShape& btn, sf::RenderWindow& window) {
 }
 
 int main() {
-    sf::Color bg(28, 28, 25);
-    sf::Color btnColor(52, 53, 43);
-    sf::Color text(234, 234, 227);
-    sf::Color outlineActive(130, 130, 119);
-    const int windowWidth = 1600, windowHeight = 900;
-    
     bool drawGraph[8];
     clearGraph(drawGraph);
 
-    sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Graphit");
+    sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "GraphIt");
 
     int btnWidth = window.getSize().x / 4 - 50;
     int btnHeight = (window.getSize().y) / 16;
@@ -62,7 +58,7 @@ int main() {
     std::vector<sf::RectangleShape> buttons;
     std::vector<sf::Text> buttonTexts;
 
-    int numButtons = 8;
+    int numButtons = 7;
 
     sf::Font font;
     font.loadFromFile("jetbrainsmono.ttf");
@@ -74,17 +70,8 @@ int main() {
         "slope",
         "hyperbola",
         "circle",
-        "ellipse",
-        "vector"
+        "ellipse"
     };
-
-    sf::VertexArray sineWave, slope, cosWave, parabola;
-    sf::CircleShape circle;
-    sineWave = Sine();
-    slope = Slope();
-    circle = Circle();
-    cosWave = Cosine();
-    parabola = Parabola();
 
     sf::VertexArray axes = createAxes();
 
@@ -101,6 +88,10 @@ int main() {
         buttonTexts.push_back(btnText);
     }
 
+       sf::RectangleShape graphBg(sf::Vector2f(right-left, bottom-top));
+       graphBg.setPosition(left, top );
+       graphBg.setFillColor(sf::Color(graphBgColor));
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -110,7 +101,7 @@ int main() {
 
         for (int i = 0; i < numButtons; ++i) {
             if (MouseClicked(buttons[i], window)) {
-                for (int j = 0; j < int(buttons.size()); ++j) {  
+                for (int j = 0; j < int(buttons.size()); ++j) {
                     buttons[j].setOutlineThickness(0);
                 }
 
@@ -128,6 +119,7 @@ int main() {
         }
 
         window.clear(bg);
+        window.draw(graphBg);
         window.draw(axes);
 
         for (int i = 0; i < numButtons; ++i) {
@@ -135,19 +127,26 @@ int main() {
             window.draw(buttonTexts[i]);
         }
         if (drawGraph[0]) {
-            window.draw(sineWave);
-        }
-        if (drawGraph[3]) {
-            window.draw(slope);
-        }
-        if (drawGraph[5]) {
-            window.draw(circle);
+            window.draw(Sine());
         }
         if (drawGraph[1]) {
-            window.draw(cosWave);
+            window.draw(Cosine());
         }
         if (drawGraph[2]) {
-            window.draw(parabola);
+            window.draw(Parabola());
+        }
+        if (drawGraph[3]) {
+            window.draw(Slope());
+        }
+        if (drawGraph[4]) {
+            window.draw(Hyper_left());
+            window.draw(Hyper_right());
+        }
+        if (drawGraph[5]) {
+            window.draw(Circle());
+        }
+        if (drawGraph[6]) {
+            window.draw(Ellipse());
         }
 
         window.display();

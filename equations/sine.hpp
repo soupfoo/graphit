@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Color.hpp>
-#include <vector>
 #include <cmath>
 #include "vars.hpp"
 
@@ -16,6 +15,6 @@ sf::VertexArray Sine() {
         sineWave.append(sf::Vertex(sf::Vector2f(x, y-2), graphColor ));
         sineWave.append(sf::Vertex(sf::Vector2f(x, y+2), graphColor ));
     }
-    
+
     return sineWave;
 }

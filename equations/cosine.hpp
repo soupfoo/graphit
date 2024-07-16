@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Color.hpp>
-#include <vector>
 #include <cmath>
 #include "vars.hpp"
 
