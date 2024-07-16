@@ -15,6 +15,7 @@ const int bottom = 850;
 const sf::Color graphColor(225, 210, 244);
 const sf::Color graphBgColor(44, 42, 45);
 const sf::Color axisColor(214, 203, 219);
+const sf::Color gridColor(100, 96, 102);
 const sf::Color bg(26, 24, 28);
 const sf::Color btnColor(60, 56, 66);
 const sf::Color text(231, 227, 234);

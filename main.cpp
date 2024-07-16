@@ -23,6 +23,21 @@ sf::VertexArray createAxes() {
     return axes;
 }
 
+sf::VertexArray createGrid() {
+    sf::VertexArray grid(sf::Lines);
+
+    for (int i=top; i <= bottom; i+=50) {
+        grid.append(sf::Vertex(sf::Vector2f(left, i), gridColor));
+        grid.append(sf::Vertex(sf::Vector2f(right, i), gridColor));
+    }
+
+    for (int j=left; j <= right; j+=50) {
+        grid.append(sf::Vertex(sf::Vector2f(j, top), gridColor));
+        grid.append(sf::Vertex(sf::Vector2f(j, bottom), gridColor));
+    }
+    return grid;
+}
+
 void clearGraph(bool g[]) {
     for (int i = 0; i < 8; i++) {
         g[i] = false;
@@ -74,6 +89,7 @@ int main() {
     };
 
     sf::VertexArray axes = createAxes();
+    sf::VertexArray grids = createGrid();
 
     for (int i = 0; i < numButtons; ++i) {
         sf::RectangleShape btn(sf::Vector2f(btnWidth, btnHeight));
@@ -120,6 +136,7 @@ int main() {
 
         window.clear(bg);
         window.draw(graphBg);
+        window.draw(grids);
         window.draw(axes);
 
         for (int i = 0; i < numButtons; ++i) {
