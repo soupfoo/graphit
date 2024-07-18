@@ -64,7 +64,7 @@ int main() {
     bool drawGraph[8];
     clearGraph(drawGraph);
 
-    sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "GraphIt");
+    sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "GraphIt", sf::Style::Titlebar | sf::Style::Close);
 
     int btnWidth = window.getSize().x / 4 - 50;
     int btnHeight = (window.getSize().y) / 16;

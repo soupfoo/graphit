@@ -4,7 +4,8 @@
 #include "vars.hpp"
 
 sf::CircleShape Circle() {
-    const float radius = 200.f;
+    const float r = 5.f;
+    const float radius = r*50;
 
     sf::CircleShape cr;
     cr.setRadius(radius);
