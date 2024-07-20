@@ -14,9 +14,9 @@ sf::VertexArray vertex_calc(const float _a, const float _b, const int sign) {
         float rootTerm = (x * x) / (a * a) + 1;
 
         if (rootTerm >= 0) {
-            float y1 = b * sqrt(rootTerm);
-            hyperbola.append(sf::Vertex(sf::Vector2f(sign*y1+centreX+2, x+centreY), graphColor));
-            hyperbola.append(sf::Vertex(sf::Vector2f(sign*y1+centreX-2, x+centreY), graphColor));
+            float y = b * sqrt(rootTerm);
+            hyperbola.append(sf::Vertex(sf::Vector2f(sign*y+centreX+2, x+centreY), graphColor));
+            hyperbola.append(sf::Vertex(sf::Vector2f(sign*y+centreX-2, x+centreY), graphColor));
         }
     }
     return hyperbola;

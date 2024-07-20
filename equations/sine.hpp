@@ -15,6 +15,5 @@ sf::VertexArray Sine(const float a, const float f) {
         sineWave.append(sf::Vertex(sf::Vector2f(x, y-2), graphColor ));
         sineWave.append(sf::Vertex(sf::Vector2f(x, y+2), graphColor ));
     }
-
     return sineWave;
 }

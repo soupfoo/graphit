@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Color.hpp>
-#include <SFML/Graphics/Drawable.hpp>
 #include <cmath>
 #include <sstream>
 #include "equations/vars.hpp"
@@ -178,7 +177,6 @@ int main() {
                 input.clear();
                 currentPrompt = prompts[i];
                 outputtext.setString(currentPrompt);
-
             } else {
                 buttons[i].setFillColor(btnColor);
                 buttonTexts[i].setFillColor(text);

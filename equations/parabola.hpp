@@ -16,6 +16,5 @@ sf::VertexArray Parabola(const float a) {
         pb.append(sf::Vertex(sf::Vector2f(x, y2-2), graphColor));
         pb.append(sf::Vertex(sf::Vector2f(x, y2+2), graphColor));
     }
-
     return pb;
 }
