@@ -11,7 +11,7 @@ sf::VertexArray Sine(const float a, const float f) {
     sf::VertexArray sineWave(sf::TrianglesStrip);
 
     for (float x = left; x <= right; x += 1) {
-        float y = amplitude * std::sin(frequency * (x - centreX) + phaseShift) + centreY;
+        float y = -amplitude * std::sin(frequency * (x - centreX) + phaseShift) + centreY;
         sineWave.append(sf::Vertex(sf::Vector2f(x, y-2), graphColor ));
         sineWave.append(sf::Vertex(sf::Vector2f(x, y+2), graphColor ));
     }
