@@ -3,9 +3,7 @@
 #include <cmath>
 #include "vars.hpp"
 
-sf::VertexArray Parabola() {
-    const float a = 4;
-
+sf::VertexArray Parabola(const float a) {
     sf::VertexArray pb(sf::TrianglesStrip);
 
     for (float x = right; x >= centreX; x--) {

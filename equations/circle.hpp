@@ -3,8 +3,7 @@
 #include <cmath>
 #include "vars.hpp"
 
-sf::CircleShape Circle() {
-    const float r = 5.f;
+sf::CircleShape Circle(const float r) {
     const float radius = r*50;
 
     sf::CircleShape cr;

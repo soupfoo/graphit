@@ -3,20 +3,14 @@
 #include <cmath>
 #include "vars.hpp"
 
-sf::VertexArray vertex_calc(int sign) {
-    sf::VertexArray hyperbola(sf::TrianglesStrip);
-    const float step = 1.f;
-    const float _a = 6.f;
-    const float _b = 6.f;
-
-    // scaling up a,b for our graph
-    const float a = 20*_a;
-    const float b = 20*_b;
-
+sf::VertexArray vertex_calc(const float _a, const float _b, const int sign) {
+    const float a = 50*_a;
+    const float b = 50*_b;
     const float minX = -a*2;
     const float maxX = a*2;
+    sf::VertexArray hyperbola(sf::TrianglesStrip);
 
-    for (float x = minX; x <= maxX; x += step) {
+    for (float x = minX; x <= maxX; x++) {
         float rootTerm = (x * x) / (a * a) + 1;
 
         if (rootTerm >= 0) {
@@ -28,10 +22,10 @@ sf::VertexArray vertex_calc(int sign) {
     return hyperbola;
 }
 
-sf::VertexArray Hyper_left() {
-    return vertex_calc(-1);
+sf::VertexArray Hyper_left(const float _a, const float _b) {
+    return vertex_calc(_a, _b, -1);
 }
 
-sf::VertexArray Hyper_right() {
-    return vertex_calc(1);
+sf::VertexArray Hyper_right(const float _a, const float _b) {
+    return vertex_calc(_a, _b, 1);
 }

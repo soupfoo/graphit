@@ -3,9 +3,9 @@
 #include <cmath>
 #include "vars.hpp"
 
-sf::VertexArray Cosine() {
-    const float amplitude = 150.f;
-    const float frequency = 0.015f;
+sf::VertexArray Cosine(const float a, const float f) {
+    const float amplitude = a*50;
+    const float frequency = f/50;;
     const float phaseShift = 0.f;
     const float verticalOffset = 450.f;
 

@@ -3,11 +3,8 @@
 #include <cmath>
 #include "vars.hpp"
 
-sf::CircleShape Ellipse() {
-    float radius = 6.f;
-    const float r = 10*radius; // upscaled for our graph
-    const float a = 3;
-    const float b = 1;
+sf::CircleShape Ellipse(const float a, const float b) {
+    const float r = 50;
 
     sf::CircleShape elsp;
     elsp.setRadius(r);

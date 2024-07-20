@@ -2,6 +2,7 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Drawable.hpp>
 #include <cmath>
+#include <sstream>
 #include "equations/vars.hpp"
 #include "equations/parabola.hpp"
 #include "equations/sine.hpp"
@@ -60,15 +61,33 @@ bool MouseClicked(const sf::RectangleShape& btn, sf::RenderWindow& window) {
     return sf::Mouse::isButtonPressed(sf::Mouse::Left) && MouseHover(btn, window);
 }
 
+void handleInput(sf::Event event, bool &inputComplete, std::string &input, sf::Text &displayText, const std::string &prompt) {
+    if (event.type == sf::Event::TextEntered) {
+        if (event.text.unicode == '\r') {
+            inputComplete = true;
+        }
+        else if (event.text.unicode == 8) {
+            if (!input.empty()) {
+                input.pop_back();
+                displayText.setString(prompt + input);
+            }
+        }
+        else if (event.text.unicode < 128) {
+            input += static_cast<char>(event.text.unicode);
+            displayText.setString(prompt + input);
+        }
+    }
+}
+
 int main() {
     bool drawGraph[8];
     clearGraph(drawGraph);
 
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "GraphIt", sf::Style::Titlebar | sf::Style::Close);
 
-    int btnWidth = window.getSize().x / 4 - 50;
-    int btnHeight = (window.getSize().y) / 16;
-    int fontSize = std::min(btnWidth / 10, btnHeight / 3);
+    const int btnWidth = window.getSize().x / 4 - 50;
+    const int btnHeight = (window.getSize().y) / 16;
+    const int fontSize = std::min(btnWidth / 10, btnHeight / 3);
 
     std::vector<sf::RectangleShape> buttons;
     std::vector<sf::Text> buttonTexts;
@@ -104,19 +123,47 @@ int main() {
         buttonTexts.push_back(btnText);
     }
 
-       sf::RectangleShape graphBg(sf::Vector2f(right-left, bottom-top));
-       graphBg.setPosition(left, top );
-       graphBg.setFillColor(sf::Color(graphBgColor));
+    sf::RectangleShape graphBg(sf::Vector2f(right-left, bottom-top));
+    graphBg.setPosition(left, top );
+    graphBg.setFillColor(sf::Color(graphBgColor));
+
+    sf::Text outputtext;
+    outputtext.setFont(font);
+    outputtext.setCharacterSize(fontSize);
+    outputtext.setFillColor(text);
+    outputtext.setPosition(25, 505);
+
+    sf::RectangleShape inputBox(sf::Vector2f(btnWidth, btnHeight*4));
+    inputBox.setPosition(10, 500);
+    inputBox.setFillColor(graphBgColor);
+    inputBox.setOutlineColor(outlineActive);
+    inputBox.setOutlineThickness(2);
+    std::string input;
+    bool inputComplete = false;
+    std::string currentPrompt;
+
+    std::vector<std::string> prompts{
+        "Input amplitude\nand frequency:\n\n",
+        "Input amplitude\n and frequency:\n\n",
+        "Input a:\n\n",
+        "Input m and c:\n\n",
+        "Input a and b:\n\n",
+        "Input radius:\n\n",
+        "Input a and b:\n\n"};
 
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
+
+            handleInput(event, inputComplete, input, outputtext, currentPrompt);
         }
 
         for (int i = 0; i < numButtons; ++i) {
             if (MouseClicked(buttons[i], window)) {
+                inputBox.setOutlineThickness(2);
+                inputBox.setOutlineColor(gridColor);
                 for (int j = 0; j < int(buttons.size()); ++j) {
                     buttons[j].setOutlineThickness(0);
                 }
@@ -128,6 +175,10 @@ int main() {
                 clearGraph(drawGraph);
                 drawGraph[i] = true;
 
+                input.clear();
+                currentPrompt = prompts[i];
+                outputtext.setString(currentPrompt);
+
             } else {
                 buttons[i].setFillColor(btnColor);
                 buttonTexts[i].setFillColor(text);
@@ -138,32 +189,59 @@ int main() {
         window.draw(graphBg);
         window.draw(grids);
         window.draw(axes);
+        window.draw(inputBox);
+        window.draw(outputtext);
 
         for (int i = 0; i < numButtons; ++i) {
             window.draw(buttons[i]);
             window.draw(buttonTexts[i]);
         }
+        if (MouseClicked(inputBox, window)) {
+                inputBox.setOutlineThickness(5);
+                inputBox.setOutlineColor(outlineActive);
+        }
         if (drawGraph[0]) {
-            window.draw(Sine());
+            std::stringstream ss(input);
+            float a, f;
+            ss >> a >> f;
+            window.draw(Sine(a, f));
         }
         if (drawGraph[1]) {
-            window.draw(Cosine());
+            std::stringstream ss(input);
+            float a, f;
+            ss >> a >> f;
+            window.draw(Cosine(a, f));
         }
         if (drawGraph[2]) {
-            window.draw(Parabola());
+            std::stringstream ss(input);
+            float a;
+            ss >> a;
+            window.draw(Parabola(a));
         }
         if (drawGraph[3]) {
-            window.draw(Slope());
+            std::stringstream ss(input);
+            float m, c;
+            ss >> m >> c;
+            window.draw(Slope(m, c));
         }
         if (drawGraph[4]) {
-            window.draw(Hyper_left());
-            window.draw(Hyper_right());
+            std::stringstream ss(input);
+            float a, b;
+            ss >> a >> b;
+            window.draw(Hyper_left(a, b));
+            window.draw(Hyper_right(a, b));
         }
         if (drawGraph[5]) {
-            window.draw(Circle());
+            std::stringstream ss(input);
+            float r;
+            ss >> r;
+            window.draw(Circle(r));
         }
         if (drawGraph[6]) {
-            window.draw(Ellipse());
+            std::stringstream ss(input);
+            float a, b;
+            ss >> a >> b;
+            window.draw(Ellipse(a, b));
         }
 
         window.display();
