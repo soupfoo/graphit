@@ -11,7 +11,8 @@ sf::CircleShape Circle(const float r) {
     cr.setOutlineThickness(4.f);
     cr.setOutlineColor(graphColor);
     cr.setFillColor(sf::Color::Transparent);
-    cr.setPosition(centreX-radius, centreY-radius);
+    cr.setOrigin(radius, radius);
+    cr.setPosition(centreX, centreY);
 
     return cr;
 }

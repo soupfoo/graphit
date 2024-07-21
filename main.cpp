@@ -39,7 +39,7 @@ sf::VertexArray createGrid() {
 }
 
 void clearGraph(bool g[]) {
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 7; i++) {
         g[i] = false;
     }
 }
@@ -60,7 +60,7 @@ bool MouseClicked(const sf::RectangleShape& btn, sf::RenderWindow& window) {
     return sf::Mouse::isButtonPressed(sf::Mouse::Left) && MouseHover(btn, window);
 }
 
-void handleInput(sf::Event event, bool &inputComplete, std::string &input, sf::Text &displayText, const std::string &prompt) {
+void handleInput(sf::Event event, bool &inputComplete, std::wstring &input, sf::Text &displayText, const std::wstring &prompt) {
     if (event.type == sf::Event::TextEntered) {
         if (event.text.unicode == '\r') {
             inputComplete = true;
@@ -70,8 +70,7 @@ void handleInput(sf::Event event, bool &inputComplete, std::string &input, sf::T
                 input.pop_back();
                 displayText.setString(prompt + input);
             }
-        }
-        else if (event.text.unicode < 128) {
+        } else  {
             input += static_cast<char>(event.text.unicode);
             displayText.setString(prompt + input);
         }
@@ -79,7 +78,7 @@ void handleInput(sf::Event event, bool &inputComplete, std::string &input, sf::T
 }
 
 int main() {
-    bool drawGraph[8];
+    bool drawGraph[7];
     clearGraph(drawGraph);
 
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "GraphIt", sf::Style::Titlebar | sf::Style::Close);
@@ -137,18 +136,18 @@ int main() {
     inputBox.setFillColor(graphBgColor);
     inputBox.setOutlineColor(outlineActive);
     inputBox.setOutlineThickness(2);
-    std::string input;
+    std::wstring input;
     bool inputComplete = false;
-    std::string currentPrompt;
+    std::wstring currentPrompt;
 
-    std::vector<std::string> prompts{
-        "Input amplitude\nand frequency:\n\n",
-        "Input amplitude\nand frequency:\n\n",
-        "Input a:\n\n",
-        "Input m and c:\n\n",
-        "Input a and b:\n\n",
-        "Input radius:\n\n",
-        "Input a and b:\n\n"};
+    std::vector<std::wstring> prompts{
+        L"y(t) = Asin(2πft+ϕ)\n\nInput amplitude\nand frequency:\n\n",
+        L"y(t) = Acos(2πft+ϕ)\n\nInput amplitude\nand frequency:\n\n",
+        L"y = 4ax\n\nInput a:\n\n",
+        L"y = mx+c\n\nInput m and c:\n\n",
+        L"x^2/a^2 - y^2/b^2 = 1\n\nInput a and b:\n\n",
+        L"x^2 + y^2 = r^2\n\nInput radius:\n\n",
+        L"x^2/a^2 + y^2/b^2 = 1\n\nInput a and b:\n\n"};
 
     while (window.isOpen()) {
         sf::Event event;
@@ -199,44 +198,44 @@ int main() {
                 inputBox.setOutlineColor(outlineActive);
         }
         if (drawGraph[0]) {
-            std::stringstream ss(input);
+            std::wstringstream ss(input);
             float a, f;
             ss >> a >> f;
             window.draw(Sine(a, f));
         }
         if (drawGraph[1]) {
-            std::stringstream ss(input);
+            std::wstringstream ss(input);
             float a, f;
             ss >> a >> f;
             window.draw(Cosine(a, f));
         }
         if (drawGraph[2]) {
-            std::stringstream ss(input);
+            std::wstringstream ss(input);
             float a;
             ss >> a;
             window.draw(Parabola(a));
         }
         if (drawGraph[3]) {
-            std::stringstream ss(input);
+            std::wstringstream ss(input);
             float m, c;
             ss >> m >> c;
             window.draw(Slope(m, c));
         }
         if (drawGraph[4]) {
-            std::stringstream ss(input);
+            std::wstringstream ss(input);
             float a, b;
             ss >> a >> b;
             window.draw(Hyper_left(a, b));
             window.draw(Hyper_right(a, b));
         }
         if (drawGraph[5]) {
-            std::stringstream ss(input);
+            std::wstringstream ss(input);
             float r;
             ss >> r;
             window.draw(Circle(r));
         }
         if (drawGraph[6]) {
-            std::stringstream ss(input);
+            std::wstringstream ss(input);
             float a, b;
             ss >> a >> b;
             window.draw(Ellipse(a, b));
