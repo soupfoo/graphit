@@ -143,7 +143,7 @@ int main() {
 
     std::vector<std::string> prompts{
         "Input amplitude\nand frequency:\n\n",
-        "Input amplitude\n and frequency:\n\n",
+        "Input amplitude\nand frequency:\n\n",
         "Input a:\n\n",
         "Input m and c:\n\n",
         "Input a and b:\n\n",
