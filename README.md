@@ -13,19 +13,16 @@
 
 ### Build from source
 
-Linux:
 ```
 git clone https://github.com/soupfoo/graphit.git
-cd graphit
-sh run.sh
+
+# Generate build files
+project_root$ cmake -B build
+
+# Build
+project_root$ make -C build
 ```
 
-Windows:
-```
-git clone https://github.com/soupfoo/graphit.git
-cd graphit
-./run.ps1
-```
 ## License
 
 GraphIt is licensed under the MIT license. See [LICENSE](./LICENSE) for details.
