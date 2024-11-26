@@ -1,4 +1,34 @@
-graphit
-sfml
+# Build files
+build
+CMakeFiles
+CMakeCache.txt
+
+# Compiled object files
 *.o
+*.obj
+
+# Compiled Dynamic libraries
+*.so
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executable files
+bin
+*.out
 *.exe
+*.app
+
+# Cache for clangd
+.cache
+
+# Tools
+vgcore*
+
+# Text editor specific files
+.vscode
+.vim
