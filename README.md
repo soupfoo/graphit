@@ -2,7 +2,7 @@
 
 > A graphing calculator
 
-<img src="./Screenshot.png" width="600">
+<img src="./screenshots/Screenshot.png" width="600">
 
 ## Installation
 
